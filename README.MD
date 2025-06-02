@@ -1,3 +1,5 @@
+![crates.io](https://img.shields.io/crates/v/tree-sitter-onescript?label=crates.io)
+
 # tree-sitter-onescript
 
 **tree-sitter-onescript** — полноценная грамматика [Tree-sitter](https://tree-sitter.github.io/), для языка [OneScript](https://github.com/EvilBeaver/OneScript).
