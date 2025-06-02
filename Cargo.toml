@@ -1,0 +1,28 @@
+[package]
+name = "tree-sitter-onescript"
+description = "OneScript language grammar for Tree-Sitter"
+version = "0.1.0"
+authors = ["Gukov Viktor <zchokobo@gmail.com>"]
+license = "MIT"
+readme = "README.MD"
+keywords = ["incremental", "parsing", "tree-sitter", "onescript"]
+categories = ["parsing", "text-editors"]
+repository = "https://github.com/1c-syntax/tree-sitter-onescript"
+edition = "2021"
+autoexamples = false
+
+build = "bindings/rust/build.rs"
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*", "tree-sitter.json"]
+
+[lib]
+path = "bindings/rust/lib.rs"
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1.1.22"
+
+[dev-dependencies]
+tree-sitter = "0.25.4"

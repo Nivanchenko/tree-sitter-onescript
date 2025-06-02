@@ -1,0 +1,70 @@
+====================
+Function declaration
+====================
+
+Function Test()
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+    (identifier)
+    (argument_list)
+    )
+  )
+)
+
+==============================
+Function declaration with args
+==============================
+
+Function Test(One, Two, Three)
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+    (identifier)
+    (argument_list
+      (arguments
+        (identifier)
+        (identifier)
+        (identifier))))))
+
+===========================
+Export function declaration
+===========================
+
+Function Test() Export
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+    (identifier)
+    (argument_list)
+    )
+  )
+)
+
+====================================
+Variable declaration within function
+====================================
+Function Test()
+  Var Test;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (var_block
+            (var_declaration
+              (identifier))))))

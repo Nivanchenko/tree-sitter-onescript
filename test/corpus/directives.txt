@@ -1,0 +1,19 @@
+==============================
+I hate preprocessor directives
+==============================
+
+# Region Test
+Function Test()
+EndFunction
+#EndRegion
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+    (identifier)
+    (argument_list)
+    )
+  )
+)

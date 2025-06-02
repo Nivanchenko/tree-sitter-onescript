@@ -1,0 +1,36 @@
+====================
+Procedure declaration
+====================
+
+Procedure Test()
+EndProcedure
+
+---
+
+(source_file
+  (method_block
+    (proc_declaration
+    (identifier)
+    (argument_list)
+    )
+  )
+)
+
+==============================
+Procedure declaration with args
+==============================
+
+Procedure Test(One, Two, Three)
+EndProcedure
+
+---
+
+(source_file
+  (method_block
+    (proc_declaration
+    (identifier)
+    (argument_list
+      (arguments
+        (identifier)
+        (identifier)
+        (identifier))))))

@@ -1,0 +1,379 @@
+===
+Try
+===
+Function Test()
+  Try
+    Obj = new Obj();
+  Except
+    LogError();
+    Return;
+  EndTry;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (try_statement
+            (assignment
+              (identifier)
+              (new_operator
+                (member_access
+                  (method_call
+                    (identifier)))))
+            (call_statement
+              (method_call
+                (identifier)))
+            (return_statement)))))
+============
+IF statement
+============
+Функция Test()
+If a > 0 Then
+    b = 1;
+EndIf;
+КонецФункции
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (assignment
+              (identifier)
+              (number))))))
+
+=======================
+IF statement with ElsIf
+=======================
+
+Процедура Тест()
+If a > 5 Then
+    b = 10;
+ElsIf a = 5 Then
+    b = 15;
+Else
+    b = 20;
+EndIf;
+КонецПроцедуры
+
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (assignment
+              (identifier)
+              (number))
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (assignment
+              (identifier)
+              (number))
+            (assignment
+              (identifier)
+              (number))))))
+===================
+Nested IF statement
+===================
+Процедура Тест()
+If a > 5 Then
+    If b < 10 Then
+        c = 15;
+    Else
+        c = 20;
+    EndIf;
+Else
+    d = 25;
+EndIf;
+КонецПроцедуры
+
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (if_statement
+              (binary_expression
+                (member_access
+                  (identifier))
+                (number))
+              (assignment
+                (identifier)
+                (number))
+              (assignment
+                (identifier)
+                (number)))
+            (assignment
+              (identifier)
+              (number))))))
+========
+FOR loop
+========
+Процедура Тест()
+For it = 1 To 10 Do
+  Message();
+EndDo;
+КонецПроцедуры
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (for_loop
+            (identifier)
+            (number)
+            (number)
+            (call_statement
+              (method_call
+                (identifier)))))))
+===============
+WHILE loop
+===============
+Процедура Тест()
+While a < 10 Do
+    a = a + 1;
+EndWhile;
+КонецПроцедуры
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (while_loop
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (assignment
+              (identifier)
+              (binary_expression
+              (member_access
+                  (identifier))
+                (number)))))))
+
+=======================
+Nested WHILE loops
+=======================
+
+Процедура Тест()
+While a < 10 Do
+    While b > 5 Do
+        b = b - 1;
+    EndWhile;
+    a = a + 1;
+EndWhile;
+КонецПроцедуры
+
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (while_loop
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))
+            (while_loop
+              (binary_expression
+              (member_access
+                (identifier))
+                (number))
+              (assignment
+              (identifier)
+                (binary_expression
+              (member_access
+                (identifier))
+                  (number))))
+            (assignment
+              (identifier)
+              (binary_expression
+              (member_access
+                (identifier))
+                (number)))))))
+
+============================
+WHILE loop with no body
+============================
+
+Процедура Тест()
+While a < 10 Do
+EndWhile;
+КонецПроцедуры
+
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (while_loop
+            (binary_expression
+              (member_access
+                (identifier))
+              (number))))))
+============
+Raise string
+============
+Function Test()
+  Raise "Exception text";
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (raise_operator
+            (string)))))
+===========
+Empty Raise
+===========
+Function Test()
+  ВызватьИсключение;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (raise_operator))))
+
+=================
+Raise method call
+=================
+Function Test()
+  Raise MethodCall(ФайлНастроек.ПолноеИмя);
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (raise_operator
+            (member_access
+              (method_call
+                (identifier)
+                (call_args
+                  (member_access
+                    (member_property
+                      (member_access
+                        (identifier))
+                      (identifier))))))))))
+=============
+FOR EACH loop
+=============
+Процедура Тест()
+For each it In Arr Do
+  Message();
+EndDo;
+КонецПроцедуры
+---
+    (source_file
+      (method_block
+        (proc_declaration
+          (identifier)
+          (argument_list)
+          (for_each_loop
+            (identifier)
+            (member_access
+              (identifier))
+            (call_statement
+              (method_call
+                (identifier)))))))
+==========================
+for each with obj property
+==========================
+Function Test()
+  For each it In Obj.Property Do
+    Message();
+  EndDo;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (for_each_loop
+            (identifier)
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (identifier)))
+            (call_statement
+              (method_call
+                (identifier)))))))
+===========
+Add handler
+===========
+Function Test()
+  AddHandler Obj.Property, Obj.Property;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (add_handler
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (identifier)))
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (identifier)))))))
+===========
+Remove handler
+===========
+Function Test()
+  RemoveHandler Obj.Property, Obj.Property;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (remove_handler
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (identifier)))
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (identifier)))))))

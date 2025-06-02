@@ -1,0 +1,54 @@
+====================
+Variable declaration
+====================
+
+Var Test;
+
+---
+
+(source_file
+      (module_var_block
+        (module_var_declaration
+          (identifier))))
+
+==============================
+Multiple variable declarations
+==============================
+
+Var One, Two, Three;
+
+---
+(source_file
+      (module_var_block
+        (module_var_declaration
+          (identifier)
+          (identifier)
+          (identifier))))
+
+================================
+Variable declaration with export
+================================
+
+Var Test export;
+
+---
+(source_file
+      (module_var_block
+        (module_var_declaration
+          (identifier)
+          (export))))
+
+==========================================
+Multiple variable declarations with export
+==========================================
+
+Var One, Two, Three export;
+
+---
+    (source_file
+      (module_var_block
+        (module_var_declaration
+          (identifier)
+          (identifier)
+          (identifier)
+          (export))))

@@ -1,0 +1,225 @@
+===================
+Simple function annotation
+===================
+&Annotation1
+Function Test()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier))
+          (identifier)
+          (argument_list))))
+==================================
+Multiple functions with annotation
+==================================
+&Annotation1
+Function Test()
+EndFunction
+
+
+&Annotation2
+Function TestTwo()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier))
+          (identifier)
+          (argument_list))
+        (func_declaration
+          (annotation
+            (identifier))
+          (identifier)
+          (argument_list))))
+=============================
+Multiple function annotations
+=============================
+&Annotation1
+&Annotation2
+Function Test()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier))
+          (annotation
+            (identifier))
+          (identifier)
+          (argument_list))))
+===========================
+Simple parameter annotation
+===========================
+Function Test(
+    &Annotation1 Parameter1
+)
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list
+            (arguments
+              (annotation
+                (identifier))
+              (identifier))))))
+==============================
+Multiple parameter annotations
+==============================
+Function Test(
+    &Annotation1
+    &Annotation2
+    Parameter1,
+
+    &Annotation1
+    &Annotation2
+    Parameter2
+)
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list
+            (arguments
+              (annotation
+                (identifier))
+              (annotation
+                (identifier))
+              (identifier)
+              (annotation
+                (identifier))
+              (annotation
+                (identifier))
+              (identifier))))))
+====================
+Annotation parameter
+====================
+&Annotation1(Parameter)
+Function Test()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier)
+            (annotation_parameter
+              (identifier)))
+          (identifier)
+          (argument_list))))
+===========================
+String annotation parameter
+===========================
+&Annotation1("Value")
+Function Test()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier)
+            (annotation_parameter
+              (string)))
+          (identifier)
+          (argument_list))))
+=======================================
+Annotation parameter with default value
+=======================================
+&Annotation1(Parameter = 1)
+Function Test()
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier)
+            (annotation_parameter
+              (identifier)
+              (number)))
+          (identifier)
+          (argument_list))))
+==========================
+Simple variable annotation
+==========================
+&Annotation1
+Var Name;
+---
+    (source_file
+      (module_var_block
+        (module_var_declaration
+          (annotation
+            (identifier))
+          (identifier))))
+============================
+Multiple variable annotation
+============================
+&Annotation0(Name = "Name", Description = "Descr")
+&Annotation1
+Var Name;
+---
+    (source_file
+      (module_var_block
+        (module_var_declaration
+          (annotation
+            (identifier)
+            (annotation_parameter
+              (identifier)
+              (string))
+            (annotation_parameter
+              (identifier)
+              (string)))
+          (annotation
+            (identifier))
+          (identifier))))
+===================================
+Multiple variables with annotations
+===================================
+&Annotation1
+Var One;
+
+&Annotation2
+Var Two;
+---
+    (source_file
+      (module_var_block
+        (module_var_declaration
+          (annotation
+            (identifier))
+          (identifier))
+        (module_var_declaration
+          (annotation
+            (identifier))
+          (identifier))))
+===================================
+Variable + function with annotation
+===================================
+&Annotation1
+Var One;
+
+&Annotation2
+Function Test()
+EndFunction
+---
+    (source_file
+      (module_var_block
+        (module_var_declaration
+          (annotation
+            (identifier))
+          (identifier)))
+      (method_block
+        (func_declaration
+          (annotation
+            (identifier))
+          (identifier)
+          (argument_list))))

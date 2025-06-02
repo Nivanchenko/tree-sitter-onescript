@@ -1,0 +1,19 @@
+========
+Comments
+========
+
+// This is some
+//comments
+Function Test() // you know?
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+    (identifier)
+    (argument_list)
+    )
+  )
+)

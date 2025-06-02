@@ -1,0 +1,538 @@
+==========
+Assignment
+==========
+
+Function Test()
+  Test = 1;
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+      func_name: (identifier)
+      (argument_list)
+      (assignment
+            target: (identifier)
+            value: (number)))))
+
+======================
+Assignment to property
+======================
+
+Function Test()
+  Obj.Test = 1;
+EndFunction
+
+---
+
+(source_file
+  (method_block
+    (func_declaration
+      func_name: (identifier)
+      (argument_list)
+      (assignment
+            target: (member_property
+              (member_access
+                (identifier))
+              (identifier))
+            value: (number)))))
+
+========================
+Parenthesized Expression
+========================
+Функция Test()
+    result = (a + b) * c;
+КонецФункции
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (binary_expression
+              (binary_expression
+                (binary_expression
+                  (member_access
+                    (identifier))
+                  (member_access
+                    (identifier))))
+              (member_access
+                (identifier)))))))
+
+==============
+String literal
+==============
+
+Function Test()
+  V = "oscript://"; // comment
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (string)))))
+
+==================
+Nested global call
+==================
+
+Function Test()
+  ExCall(NestedCall());
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (call_statement
+            (method_call
+              (identifier)
+              (call_args
+                (member_access
+                  (method_call
+                    (identifier)))))))))
+
+============================
+Chained Property Method Call
+============================
+
+Function Test()
+  Prop.CallOne().CallTwo().Three().Four();
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (call_statement
+            (member_access
+              (member_access
+                (member_access
+                  (member_access
+                    (identifier))
+                  (method_call
+                    (identifier)))
+                (method_call
+                  (identifier)))
+              (method_call
+                (identifier)))
+            (method_call
+              (identifier))))))
+
+====================
+Property Method Call
+====================
+
+Function Test()
+  Log.TestCall();
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (call_statement
+            (member_access
+              (identifier))
+            (method_call
+              (identifier))))))
+
+===========
+Logical AND
+===========
+
+Function Test()
+  If One AND Two Then
+  EndIf;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (binary_expression
+              (member_access
+                (identifier))
+              (member_access
+                (identifier)))))))
+===========
+Logical OR
+===========
+
+Function Test()
+  If One OR Two Then
+  EndIf;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (binary_expression
+              (member_access
+                (identifier))
+              (member_access
+                (identifier)))))))
+
+=================
+Assignment of new
+=================
+Function Test()
+  Variable = Новый MethodCall();
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (new_operator
+              (member_access
+                (method_call
+                  (identifier))))))))
+=======
+Ternary
+=======
+Function Test()
+  Result = ?(Condition > 10, "One", "Two");
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (ternary_operator
+              (binary_expression
+                (member_access
+                  (identifier))
+                (number))
+              (string)
+              (string))))))
+===========================
+New object as call argument
+===========================
+Function Test()
+  Obj.Call("One", "Two", "Three", НОВЫЙ Obj());
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (call_statement
+            (member_access
+              (identifier))
+            (method_call
+              (identifier)
+              (call_args
+                (string)
+                (string)
+                (string)
+                (new_operator
+                  (member_access
+                    (method_call
+                      (identifier))))))))))
+==========================
+Property from index access
+==========================
+Function Test()
+  Variable = Arr[0].Property;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (member_property
+                (member_access
+                  (index_access
+                    (identifier)
+                    (number)))
+                (identifier)))))))
+===========================
+Boolean expression with NOT
+===========================
+Function Test()
+  If НЕ Call(arg) Then
+    Message("keke");
+  EndIf;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (unary_expression
+              (member_access
+                (method_call
+                  (identifier)
+                  (call_args
+                    (member_access
+                      (identifier))))))
+            (call_statement
+              (method_call
+                (identifier)
+                (call_args
+                  (string))))))))
+==================================
+Boolean expression with call chain
+==================================
+Function Test()
+  If Obj.Property.Call() Then
+  EndIf;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (if_statement
+            (member_access
+              (member_access
+                (member_property
+                  (member_access
+                    (identifier))
+                  (identifier)))
+              (method_call
+                (identifier)))))))
+=============================
+Call args with empty argument
+=============================
+Function Test()
+  Variable = Call("One", ,,"Two");
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (method_call
+                (identifier)
+                (call_args
+                  (string)
+                  (string))))))))
+==================
+Obj prop from call
+==================
+Function Test()
+  Variable = Call().Property;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (member_property
+                (member_access
+                  (method_call
+                    (identifier)))
+                (identifier)))))))
+===========================
+Index access with identifier
+===========================
+Function Test()
+  Variable = Arr[StringIdentifier];
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (index_access
+                (identifier)
+                (member_access
+                  (identifier))))))))
+================================
+Property from new created object
+================================
+Function Test()
+  Variable = New Obj(Arg).Prop;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (new_operator
+              (member_access
+                (member_property
+                  (member_access
+                    (method_call
+                      (identifier)
+                      (call_args
+                        (member_access
+                          (identifier)))))
+                  (identifier))))))))
+============================
+New operator with call chain
+============================
+Function Test()
+  Variable = New Call().CallTwo();
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (new_operator
+              (member_access
+                (member_access
+                  (method_call
+                    (identifier)))
+                (method_call
+                  (identifier))))))))
+==========================
+Index access with property
+==========================
+Function Test()
+  Variable = Arr[Obj.Property];
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (index_access
+                (identifier)
+                (member_access
+                  (member_property
+                    (member_access
+                      (identifier))
+                    (identifier)))))))))
+============================
+Index access with expression
+============================
+Function Test()
+  Variable = Arr[Obj.Call() - 1].Property;
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (member_property
+                (member_access
+                  (index_access
+                    (identifier)
+                    (binary_expression
+                      (member_access
+                        (member_access
+                          (identifier))
+                        (method_call
+                          (identifier)))
+                      (number))))
+                (identifier)))))))
+=================================
+Object property with index access
+=================================
+Function Test()
+  Variable = Obj.Property["id"];
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (member_property
+                (member_access
+                  (identifier))
+                (index_access
+                  (identifier)
+                  (string))))))))
+=============================
+Index access from method call
+=============================
+Function Test()
+  Variable = Call()[0];
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (index_access
+                (method_call
+                  (identifier))
+                (number)))))))
+=====================================
+Method call with empty first argument
+=====================================
+Function Test()
+  Variable = Call(, arg2);
+EndFunction
+---
+    (source_file
+      (method_block
+        (func_declaration
+          (identifier)
+          (argument_list)
+          (assignment
+            (identifier)
+            (member_access
+              (method_call
+                (identifier)
+                (call_args
+                  (member_access
+                    (identifier)))))))))
