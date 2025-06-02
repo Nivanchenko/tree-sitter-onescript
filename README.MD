@@ -1,4 +1,5 @@
 ![crates.io](https://img.shields.io/crates/v/tree-sitter-onescript?label=crates.io)
+![build](https://github.com/1c-syntax/tree-sitter-onescript/actions/workflows/ci.yml/badge.svg)
 
 # tree-sitter-onescript
 
