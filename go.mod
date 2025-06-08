@@ -1,4 +1,4 @@
-module github.com/eightm/tree-sitter-onescript
+module github.com/Nivanchenko/tree-sitter-onescript
 
 go 1.22
 
